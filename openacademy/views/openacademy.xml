@@ -22,6 +22,18 @@
                 </form>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="course_search_view">
+            <field name="name">course.search</field>
+            <field name="model">openacademy.course</field>
+            <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+            </search>
+            </field>
+        </record>
+
     <!-- Window action -->
     <!--
          The following tag is an action definition for a "window action",
