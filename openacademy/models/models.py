@@ -67,6 +67,24 @@ class Session(models.Model):
         string="Attendees count", compute="_compute_get_attendees_count", store=True
     )
 
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('confirmed', 'Confirmed'),
+        ('done', 'Done'),
+    ], default='draft')
+
+    @api.multi
+    def action_draft(self):
+        self.state = 'draft'
+
+    @api.multi
+    def action_confirm(self):
+        self.state = 'confirmed'
+
+    @api.multi
+    def action_done(self):
+        self.state = 'done'
+
     @api.depends('seats', 'attendee_ids')
     def _compute_taken_seats(self):
         for r in self:
