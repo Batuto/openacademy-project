@@ -60,6 +60,8 @@ class Session(models.Model):
     taken_seats = fields.Float(string="Taken seats", compute="_compute_taken_seats")
     end_date = fields.Date(string="End Date", store=True,
                            compute='_compute_get_end_date', inverse='_inverse_set_end_date')
+    hours = fields.Float(string="Duration in hours",
+                         compute="_compute_get_hours", inverse="_inverse_set_hours")
 
     @api.depends('seats', 'attendee_ids')
     def _compute_taken_seats(self):
@@ -109,6 +111,15 @@ class Session(models.Model):
         start_date = fields.Datetime.from_string(r.start_date)
         end_date = fields.Datetime.from_string(r.end_date)
         r.duration = (end_date - start_date).days + 1
+
+    @api.depends('duration')
+    def _compute_get_hours(self):
+        for r in self:
+            r.hours = r.duration * 24
+
+    def _inverse_set_hours(self):
+        for r in self:
+            r.duration = r.hours / 24
 
     @api.constrains('instructor_id', 'attendee_ids')
     def _check_intructor_not_in_attendees(self):
