@@ -71,7 +71,7 @@ class Session(models.Model):
         ('draft', 'Draft'),
         ('confirmed', 'Confirmed'),
         ('done', 'Done'),
-    ], default='draft')
+    ])
 
     @api.multi
     def action_draft(self):
