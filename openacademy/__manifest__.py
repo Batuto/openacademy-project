@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['report'],
+    'depends': ['report','board'],
 
     # always loaded
     'data': [
@@ -31,6 +31,7 @@
         'views/openacademy.xml',
         'views/partner.xml',
         'views/session_workflow.xml',
+        'views/session_board.xml',
         'report/reports.xml',
     ],
     # only loaded in demonstration mode
