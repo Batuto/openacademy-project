@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from datetime import timedelta
-from odoo import models, fields, api, exceptions
+from odoo import models, fields, api, exceptions, _
 
 
 class Course(models.Model):
@@ -22,11 +22,11 @@ class Course(models.Model):
         default = dict(default or {})
 
         copied_count = self.search_count(
-            [('name', '=like', u"Copy of {}%".format(self.name))])
+            [('name', '=like', _(u"Copy of {}%").format(self.name))])
         if not copied_count:
-            new_name = u"Copy of {}".format(self.name)
+            new_name = _(u"Copy of {}").format(self.name)
         else:
-            new_name = u"Copy of {} ({})".format(self.name, copied_count)
+            new_name = _(u"Copy of {} ({})").format(self.name, copied_count)
 
         default['name'] = new_name
         return super(Course, self).copy(default)
@@ -98,8 +98,8 @@ class Session(models.Model):
         if self.seats < 0:
             return {
                 'warning':{
-                    'title': "Incorrect 'seats' value",
-                    'message': "The number of available seats may no be negative",
+                    'title': _("Incorrect 'seats' value"),
+                    'message': _("The number of available seats may no be negative"),
                 },
             }
         if self.seats < len(self.attendee_ids):
@@ -152,7 +152,7 @@ class Session(models.Model):
     def _check_intructor_not_in_attendees(self):
         for r in self:
             if r.instructor_id and r.instructor_id in r.attendee_ids:
-                raise exceptions.ValidationError("A session's instructor can't be an attendee")
+                raise exceptions.ValidationError(_("A session's instructor can't be an attendee"))
 
 # class openacademy(models.Model):
 #     _name = 'openacademy.openacademy'

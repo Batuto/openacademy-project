@@ -38,12 +38,6 @@
         <menuitem id="contact_cat_menu" name="Contact Tags"
             parent="configuration_menu"
             action="contact_cat_list_action"/>
-        <record model="res.partner.category" id="teacher1">
-            <field name="name">Teacher / Level 1</field>
-        </record>
-        <record model="res.partner.category" id="teacher2">
-            <field name="name">Teacher / Level 2</field>
-        </record>
    </data>
 </odoo>
 
